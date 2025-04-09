@@ -1,0 +1,13 @@
+
+/lol-stats-client/node_modules/
+/lol-stats-server/node_modules/
+
+*.log
+
+/dist/
+/build/
+
+.env
+*.env
+
+.DS_Store
