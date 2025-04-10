@@ -2,25 +2,26 @@
   "name": "lol-stats-server",
   "version": "1.0.0",
   "description": "",
-  "type": "module",   
   "main": "index.js",
   "scripts": {
-    "run": "node index.ts",
-    "dev": "nodemon index.ts"
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.6.3",
-  "devDependencies": {
+  "dependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
-  "dependencies": {
-    "@types/nodemon": "^3.1.1"
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }
