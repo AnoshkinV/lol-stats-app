@@ -1,45 +1,44 @@
 import { observer } from "mobx-react-lite"
 import { summonerStore } from "./summoner-store/summoner-store"
+import { PageWrapper } from "../../components/page-wrapper";
+import Loading from "../loading-screen/loading";
 
 
 const SummonerScreen = observer(() => {
 
     const {
         result,
-        loading,
-        error,
-        setSummonerNameWithTag,
-        fetchSummoner,
+        loading
     } = summonerStore;
 
+    // const lastTimePlayed = result &&
+    //     new Date(result.mastery[0].lastPlayTime).toLocaleDateString("en-GB", {
+    //         hour: "2-digit",
+    //         day: "2-digit",
+    //         month: "short"
+    //     })
+
+
+    if (loading || !result) {
+        return (
+            <Loading />
+        )
+    }
+
     return (
-        <div>
-            <h2>Summoner Info</h2>
+        <PageWrapper>
             <div>
-                <label>
-                    Game Name:{" "}
-                    <input
-                        type="text"
-                        onChange={(e) => setSummonerNameWithTag(e.target.value)}
-                    />
-                </label>
+                <p>Summoner: {result.summonerData.gameName}#{result.summonerData.tagLine}</p>
+                {/* <p>PUUID: {result.summonerData.puuid}</p> */}
+                <h4>Top Mains</h4>
+                {result.mastery.slice(0, 3).map((main) => (
+                    <div>
+                        <p>{main.championName}</p>
+                    </div>
+                ))}
+                {/* <p>Last time played {lastTimePlayed}</p> */}
             </div>
-            <div>
-                <button onClick={() => fetchSummoner()} disabled={loading}>
-                    {loading ? "Loading..." : "Get Info"}
-                </button>
-            </div>
-
-            {error && <div style={{ color: "red" }}>Error: {error}</div>}
-
-            {result && (
-                <div>
-                    <h3>Result:</h3>
-                    <p>Summoner {result.gameName}#{result.tagLine}</p>
-                    <p>PUUID: {result.puuid}</p>
-                </div>
-            )}
-        </div>
+        </PageWrapper>
     )
 })
 

@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: azure;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    background-color: inherit;
+}
+
+body {
+    background: rgb(27, 27, 27);
+}
+
+input {
+    color: black;
+    outline: none;
+    border: none;
+}

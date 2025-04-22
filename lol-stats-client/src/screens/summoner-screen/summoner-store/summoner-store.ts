@@ -1,9 +1,23 @@
 import { makeAutoObservable } from "mobx";
 
+
 interface Summoner {
     puuid: string,
     gameName: string,
-    tagLine: string
+    tagLine: string,
+} 
+
+interface Mastery {
+    puuid: string;
+    championId: number;
+    championName: string;
+    lastPlayTime: number;
+
+}
+
+interface SummonerData {
+    summonerData: Summoner,
+    mastery: Mastery[]
 }
 
 export class SummonerStore {
@@ -11,9 +25,10 @@ export class SummonerStore {
     gameName: string = "";
     tagLine: string = "";
     puuid: string = "";
-    result: Summoner | null = null;
+    result: SummonerData | null = null;
     loading = false;
     error: string | null = null;
+    mastery: Mastery[] | null = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -39,13 +54,14 @@ export class SummonerStore {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/${this.region}/summoner/${this.gameName}/${this.tagLine}`
+                `http://localhost:5000/api/${this.region}/summoner-full/${this.gameName}/${this.tagLine}`
             )
             if (!response.ok) {
                 throw new Error("Summoner not found");
             }
-
+            
             this.result = await response.json();
+            console.log(response)
         } catch (e: any) {
             this.error = e.message;
         } finally {
